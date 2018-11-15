@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="ExternalProjectImportWizard">
+		<item value="true" key="WizardProjectsImportPage.STORE_NESTED_PROJECTS"/>
+		<item value="true" key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID"/>
+		<item value="true" key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED"/>
+		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value=""/>
+			<item value="C:\Users\Perminow\Desktop\forelesingEks\F10f - web.xml og initparams"/>
+			<item value="C:\Users\Perminow\Desktop\forelesingEks\F10e - Ufarliggjøring av brukerinput"/>
+			<item value="C:\Users\Perminow\Desktop\forelesingEks\F10d - Input validation"/>
+			<item value="C:\Users\Perminow\Desktop\forelesingEks\F10c - Faktorisering av primtall"/>
+			<item value="C:\Users\Perminow\Desktop\forelesingEks\F10b - HTML Input Demo"/>
+			<item value="C:\Users\Perminow\Desktop\forelesingEks\F10a - Registreringsskjema"/>
+		</list>
+		<list key="WizardProjectsImportPage.STORE_ARCHIVES">
+			<item value="C:\Users\Perminow\Desktop\Oblig3.zip"/>
+			<item value=""/>
+		</list>
+	</section>
+</section>

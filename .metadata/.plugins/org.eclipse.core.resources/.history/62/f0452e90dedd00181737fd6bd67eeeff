@@ -1,0 +1,42 @@
+package no.hvl.dat108;
+
+import java.util.List;
+
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
+
+
+@Stateless
+public class PersonEAO {
+
+	@PersistenceContext(name = "PersonPU")
+	private EntityManager em;
+
+
+	@SuppressWarnings("unchecked")
+	public List<Person> hentPaameldingsListe() {
+		return em.createQuery("SELECT p FROM Person p").getResultList();
+	}
+
+	public void leggTil(Person p) {
+		em.persist(p);
+
+	}
+	
+	
+	public Person finnPerson(String mobilNr) {
+		Person p;
+		// p = em.createQuery("SELECT m FROM Person m WHERE m.mobil='" + mobilNr + "'",Person.class).getSingleResult();
+		try {
+		p = em.find(Person.class, mobilNr);
+		}catch(NoResultException e) {
+			return null;
+		}
+		 return p;
+	
+	}
+
+
+}

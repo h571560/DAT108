@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.sql.Date"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="java.util.Arrays"/>
+<fullyQualifiedTypeName name="javax.servlet.http.Cookie"/>
+<fullyQualifiedTypeName name="com.sun.net.httpserver.HttpExchange"/>
+<fullyQualifiedTypeName name="com.sun.org.apache.xalan.internal.xsltc.dom.Filter"/>
+<fullyQualifiedTypeName name="org.apache.commons.lang.StringEscapeUtils"/>
+<fullyQualifiedTypeName name="javax.jms.Session"/>
+<fullyQualifiedTypeName name="com.sun.xml.bind.v2.schemagen.xmlschema.List"/>
+<fullyQualifiedTypeName name="javax.servlet.http.HttpServletRequest"/>
+<fullyQualifiedTypeName name="javax.management.Query"/>
+<fullyQualifiedTypeName name="no.hvl.dat108.Person"/>
+<fullyQualifiedTypeName name="no.hvl.dat108.PersonEAO"/>
+<fullyQualifiedTypeName name="javax.persistence.Query"/>
+<fullyQualifiedTypeName name="javax.persistence.NoResultException"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
+<fullyQualifiedTypeName name="org.junit.Before"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+</qualifiedTypeNameHistroy>

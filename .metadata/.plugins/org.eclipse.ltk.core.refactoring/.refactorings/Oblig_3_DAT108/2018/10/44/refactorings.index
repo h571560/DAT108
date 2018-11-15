@@ -1,0 +1,15 @@
+1540833513992	Move 'html-templates' to 'WEB-INF'
+1540834012525	Rename resource 'html-templates'
+1540834021281	Rename resource 'deltagerliste_MAL.html'
+1540834029107	Rename resource 'ferdig_MAL.html'
+1540834037679	Rename resource 'logginn_MAL.html'
+1540834048925	Rename resource 'paameldingsbekreftelse_MAL.html'
+1540834090265	Rename resource 'paameldingsskjema_MAL.html'
+1540891565102	Delete element
+1540892318647	Delete element
+1540892982742	Rename type 'paameldingsSjemaServlet'
+1540893009869	Rename type 'paameldingServlet'
+1540893696666	Delete element
+1540976155581	Rename resource 'PassordUtil (1).java'
+1540978453126	Move 'script.sql' to 'Oblig_3_DAT108'
+1540980706837	Delete element

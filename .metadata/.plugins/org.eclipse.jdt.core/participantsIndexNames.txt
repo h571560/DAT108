@@ -1,0 +1,5 @@
+INDEX VERSION 1.131
+C:\Users\Perminow\eclipse-workspaceEE\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\997452764.index
+\Oblig_3_DAT108\src
+C:\Users\Perminow\eclipse-workspaceEE\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1961203524.index
+\Oblig3\src

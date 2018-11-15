@@ -1,0 +1,80 @@
+package no.hvl.dat108;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.ejb.EJB;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class logginnServlet
+ */
+@WebServlet("/logginnServlet")
+public class logginnServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		logIn logIn = new logIn(request);
+
+		request.getSession().setAttribute("loginFeil", logIn.getLoginFeil());
+		request.getRequestDispatcher("WEB-INF/jsp/logginn_MAL.jsp").forward(request, response);
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+
+	@EJB
+	PersonEAO personEAO;
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		logIn logIn = new logIn(request);
+		List<Person> deltagerListe = personEAO.hentPaameldingsListe();
+		String mobil = request.getParameter("mobil");
+		Person person = null;
+		boolean loginOk = false;
+
+		for (Person p : deltagerListe) {
+			if (p.getMobil().equals(mobil) {
+				person = p;
+			}
+		}
+
+		if (person != null) {
+			if (PassordUtil.sjekkPassord(request.getParameter("passord"), person.getPassord())) {
+				loginOk = true;
+			}
+		}
+
+		// request.getSession().setAttribute("loginFeil", logIn.getLoginFeil());
+
+		if (loginOk) {
+			// HttpSession sesjon = request.getSession(false);
+			request.getSession().removeAttribute("loginFeil");
+			request.getSession().removeAttribute("passord");
+			request.getSession().setAttribute("mobilnr",mobil);
+			//request.getSession().removeAttribute("mobil");
+
+			response.sendRedirect("deltagerListeServlet");
+		} else {
+			logIn.setOppFeilLogin();
+			request.getSession().setAttribute("login", logIn);
+			response.sendRedirect("logginnServlet");
+		}
+
+	}
+}

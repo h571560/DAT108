@@ -1,0 +1,30 @@
+package no.hvl.dat108;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.Before;
+import org.junit.jupiter.api.Test;
+
+class oblig3Tester {
+	@Before
+	void setUp() {
+		Person person1 = new Person();
+		PersonEAO personEAO;
+		
+	}
+
+	@Test
+	void regExTest() {
+		String testString1 = "";
+		String testString2 = " ";
+		String testString3 = "jonas";
+		String testString4 = "Jonas";
+		String testString5 = "pedersen";
+		String testString6 = "Pedersen";
+		String testString7 = "passord123";
+		String testString8 = "Passord123%%";
+		String testString9 = "99886655";
+		String testString10 = "Passord123%%";
+	}
+
+}

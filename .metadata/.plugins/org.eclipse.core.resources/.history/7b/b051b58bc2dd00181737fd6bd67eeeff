@@ -1,0 +1,77 @@
+package no.hvl.dat108;
+
+import javax.ejb.EJB;
+import javax.servlet.http.HttpServletRequest;
+
+public class logIn {
+
+	private String loginFeil;
+	private String loginP;
+	private String loginB;
+
+	public logIn() {
+		this.loginFeil = "";
+		this.loginP = "";
+		this.loginB = "";
+	}
+
+	public logIn(HttpServletRequest request) {
+		this.loginFeil = "";
+		this.loginB = request.getParameter("mobil");
+		this.loginP = request.getParameter("passord");
+	}
+
+	@EJB
+	private PersonEAO personEAO;
+
+	public void setOppFeilLogin() {
+			loginP = "";
+			loginB = "";
+			if (loginP == null || loginP.isEmpty() || loginB.isEmpty() || loginB == null) {
+				loginFeil = "venligst fyll ut begge feltene";
+			} else {
+				loginFeil = "ugyldig brukernavn og/eller passord";
+			}
+
+		}
+
+	public boolean loginGyldig(HttpServletRequest request) {
+		boolean rettBruk = false;
+		boolean rettPass = false;
+		boolean begge = false;
+		
+		if(loginP == null || loginP.isEmpty() || loginB.isEmpty() || loginB == null) {
+			return begge;
+		}
+		
+		loginP = PassordUtil.krypterPassord(loginP);
+
+		for (String s : personEAO.hentMobil()) {
+			if (loginB.equals(s)) {
+				rettBruk = true;
+			}
+		}
+		for (String s : personEAO.hentPassord()) {
+			if (loginP.equals(s)) {
+				rettPass = true;
+			}
+		}
+		if (rettPass && rettBruk) {
+			begge = true;
+		}
+		return begge;
+	}
+
+	public String getLoginFeil() {
+		return loginFeil;
+	}
+
+	public String getLoginP() {
+		return loginP;
+	}
+
+	public String getLoginB() {
+		return loginB;
+	}
+
+}

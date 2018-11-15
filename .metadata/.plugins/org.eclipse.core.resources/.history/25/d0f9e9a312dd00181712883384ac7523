@@ -1,0 +1,249 @@
+package no.hvl.dat108;
+
+import javax.ejb.EJB;
+import javax.servlet.http.HttpServletRequest;
+
+public class Skjema {
+
+	private String fornavn;
+	private String fornavnFeilmelding;
+	private String etternavn;
+	private String etternavnFeilmelding;
+	private String mobil;
+	private String mobilFeilmelding;
+	private String passord;
+	private String passordFeilmelding;
+	private String passordRep;
+	private String passordRepFeilmelding;
+	private String kjonn;
+	private String kjonnFeilmelding;
+	private String kvinneC;
+	private String mannC;
+	private String loginFeil;
+	private String loginP;
+	private String loginB;
+	
+	@EJB
+	private PersonEAO personEAO;
+	
+	public String getLoginP() {
+		return loginP;
+	}
+	public String getLoginB() {
+		return loginB;
+	}
+
+	public boolean loginGyldig(HttpServletRequest request) {
+		boolean rettBruk = false;
+		boolean rettPass = false;
+		PassordUtil pass = new PassordUtil((request.getAttribute("passord")));
+		for(String s:personEAO.hentMobil()) {
+			if(request.getAttribute("brukernavn").equals(mobil)) {
+				rettBruk = true;
+			}
+		}
+		for(String s:personEAO.hentPassord()) {
+			if(request.getAttribute())
+		}
+		
+		return(request.getAttribute("brukernavn").equals(personEAO.hentMobil()) && request.getAttribute("passord").equals(passord));
+	}
+
+	public String getLoginFeil() {
+		return loginFeil;
+	}
+
+	public Skjema(HttpServletRequest request) {
+		this.fornavn = request.getParameter("fornavn");
+		this.fornavnFeilmelding = "";
+		this.etternavn = request.getParameter("etternavn");
+		this.etternavnFeilmelding = "";
+		this.mobil = request.getParameter("mobil");
+		this.mobilFeilmelding = "";
+		this.passord = request.getParameter("passord");
+		this.passordFeilmelding = "";
+		this.passordRep = request.getParameter("passordRepetert");
+		this.passordRepFeilmelding = "";
+		this.kjonn = request.getParameter("kjonn");
+		this.kjonnFeilmelding = "";
+		this.kvinneC = "";
+		this.mannC = "";
+	}
+
+	public String getKjonn() {
+		return kjonn;
+	}
+
+	public void setKjonn(String kjonn) {
+		this.kjonn = kjonn;
+	}
+
+	public String getKvinneC() {
+		return kvinneC;
+	}
+
+	public void setKvinneC(String kvinneC) {
+		this.kvinneC = kvinneC;
+	}
+
+	public String getMannC() {
+		return mannC;
+	}
+
+	public void setMannC(String mannC) {
+		this.mannC = mannC;
+	}
+
+	public boolean allegyldig() {
+		if (this.fornavngyldig() && this.etternavngyldig() && this.mobilgyldig() && this.passordgyldig()
+				&& this.passordRepgyldig() && this.kjonngyldig()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean fornavngyldig() {
+		return fornavn.matches("([A-ZÆØÅ][A-Za-z æøå-]{1,20})");
+	}
+
+	public boolean etternavngyldig() {
+		return etternavn.matches("([A-ZÆØÅ][A-Za-z æøå-]{1,20})");
+	}
+
+	public boolean mobilgyldig() {
+		return mobil.matches("(0047 |0047|\\+47|\\+47 |47)?\\d{8}");
+	}
+
+	public boolean passordgyldig() {
+		return passord.matches("^(?=.*?[A-ZÆØÅ])(?=.*?[a-zæøå])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
+	}
+
+	/*
+	 * This regex will enforce these rules:
+	 * 
+	 * At least one upper case English letter, (?=.*?[A-Z]) At least one lower case
+	 * English letter, (?=.*?[a-z]) At least one digit, (?=.*?[0-9]) At least one
+	 * special character, (?=.*?[#?!@$%^&*-]) Minimum eight in length .{8,} (with
+	 * the anchors)
+	 * 
+	 * 
+	 */
+	@SuppressWarnings("static-access")
+	public Person lagPerson() {
+		PassordUtil pass = new PassordUtil();
+		passord = pass.krypterPassord(passord);
+		return new Person(fornavn, etternavn, mobil, passord, kjonn);
+	}
+
+	public void checker() {
+
+		if (kjonn != null) {
+			if (kjonn.equals("kvinne")) {
+				kvinneC = "checked";
+			} else {
+				mannC = "checked";
+			}
+		}
+	}
+
+	public boolean passordRepgyldig() {
+		if (passordRep != null && passord != null) {
+			return (passordRep.equals(passord));
+		} else {
+			return false;
+		}
+	}
+
+	public boolean kjonngyldig() {
+		if (kjonn != null) {
+			this.checker();
+			return true;
+		} else {
+			return false;
+		}
+	}
+	public void setOppFeilLogin(HttpServletRequest request) {
+		if(!loginGyldig(request)) {
+			loginP = "";
+			loginB = "";
+			loginFeil = "ugyldig brukernavn og/eller passord";
+		}
+	}
+
+	public void setOppFeilmeldinger() {
+		if (!fornavngyldig()) {
+			fornavn = "";
+			fornavnFeilmelding = "Ugyldig fornavn";
+		}
+
+		if (!etternavngyldig()) {
+			etternavn = "";
+			etternavnFeilmelding = "Ugyldig etternavn";
+		}
+		if (!mobilgyldig()) {
+			mobil = "";
+			mobilFeilmelding = "Ugyldig mobilnummer";
+		}
+		if (!passordgyldig()) {
+			passord = "";
+			passordFeilmelding = "Ugyldig passord";
+		}
+		if (!passordRepgyldig()) {
+			passordRep = "";
+			passordRepFeilmelding = "Forskjellig passord";
+		}
+		if (!kjonngyldig()) {
+			kjonnFeilmelding = "Vennligst velg kjønn";
+		}
+	}
+
+	public String getFornavn() {
+		return fornavn;
+	}
+
+	public void setFornavn(String fornavn) {
+		this.fornavn = fornavn;
+	}
+
+	public String getFornavnFeilmelding() {
+		return fornavnFeilmelding;
+	}
+
+	public String getEtternavn() {
+		return etternavn;
+	}
+
+	public String getEtternavnFeilmelding() {
+		return etternavnFeilmelding;
+	}
+
+	public String getMobil() {
+		return mobil;
+	}
+
+	public String getMobilFeilmelding() {
+		return mobilFeilmelding;
+	}
+
+	public String getPassord() {
+		return passord;
+	}
+
+	public String getPassordFeilmelding() {
+		return passordFeilmelding;
+	}
+
+	public String getPassordRep() {
+		return passordRep;
+	}
+
+	public String getPassordRepFeilmelding() {
+		return passordRepFeilmelding;
+	}
+
+	public String getKjonnFeilmelding() {
+		return kjonnFeilmelding;
+	}
+
+}

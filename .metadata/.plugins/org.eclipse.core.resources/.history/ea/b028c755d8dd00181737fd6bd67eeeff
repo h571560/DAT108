@@ -1,0 +1,78 @@
+package no.hvl.dat108;
+
+import javax.ejb.EJB;
+import javax.servlet.http.HttpServletRequest;
+
+public class logIn {
+
+	private String loginFeil;
+	private String loginP;
+	private String loginB;
+
+	public logIn() {
+		this.loginFeil = "";
+		this.loginP = "";
+		this.loginB = "";
+	}
+
+	public logIn(HttpServletRequest request) {
+		this.loginFeil = "";
+		this.loginB = request.getParameter("mobil");
+		this.loginP = request.getParameter("passord");
+	}
+
+	@EJB
+	private PersonEAO personEAO;
+
+	public void setOppFeilLogin() {
+		if (loginP == null || loginP.isEmpty() || loginB.isEmpty() || loginB == null) {
+			loginP = "";
+			loginB = "";
+			loginFeil = "venligst fyll ut begge feltene";
+		} else {
+			loginP = "";
+			loginB = "";
+			loginFeil = "ugyldig brukernavn og/eller passord";
+			
+		}
+
+	}
+
+	public boolean loginGyldig() {
+
+		boolean gyldig = false;
+		Person p;
+
+		if (!loginP.isEmpty() && !loginB.isEmpty()) {
+
+			loginP = PassordUtil.krypterPassord(loginP);
+			
+			try {
+			p = personEAO.finnPerson(loginB);
+			}catch(NullPointerException e) {
+				System.out.println("finnperson ga nullpointer");
+				System.out.println(loginB);
+				return false;
+			}
+				if (p.getMobil().equals(loginB)) {
+				if (loginP.equals(p.getPassord())) {
+						gyldig = true;
+					}
+			}
+		}
+		return gyldig;
+	}
+
+	public String getLoginFeil() {
+		return loginFeil;
+	}
+
+	public String getLoginP() {
+		return loginP;
+	}
+
+	public String getLoginB() {
+		return loginB;
+	}
+
+}

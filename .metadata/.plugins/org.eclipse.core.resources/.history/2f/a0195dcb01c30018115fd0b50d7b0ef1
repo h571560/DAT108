@@ -1,0 +1,69 @@
+package no.hvl.dat108;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class HandlelisteServlet
+ */
+@WebServlet("/HandlelisteServlet")
+public class HandlelisteServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		PrintWriter out = response.getWriter();
+		String info = request.getParameter("input");
+		ArrayList<String> varer = new ArrayList<String>();
+		
+		
+		out.print("<!DOCTYPE html>");
+		out.println("<html>");
+		out.println("<head>");
+		out.println("<meta charset=\"ISO-8859-1\">");
+		out.println("<title>Handleliste</title>");
+		out.println("</head>");
+		out.println("<body>");
+		out.println("<h1>Min handleliste</h1>");
+		out.println("<form>");
+		out.println("<input type =\"submit\" value=\"legg til\" name=\"leggTil\">");   
+		out.println("<input type=\"text\" name=\"input\">");
+		out.println("</form>");
+		out.println("<form>");
+		out.println("<br><br><br><br>");
+		if(info != null) {
+		varer.add(info);
+		out.println("<form><input type=\"submit\" value=\"slett\">" + "<h1>" + info + "</h1></form>");
+		out.println("</form>");
+		}
+		else {
+			for(String i:varer) {
+				if(i==null) {
+					varer.remove(varer.indexOf(i));
+				}
+			}
+		}
+		}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+
+	
+
+}
+	}
+
